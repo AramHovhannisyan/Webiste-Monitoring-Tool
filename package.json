@@ -1,0 +1,19 @@
+{
+  "name": "uptime-websites",
+  "version": "1.0.0",
+  "description": "",
+  "main": "monitor.js",
+  "scripts": {
+    "start": "node monitor.js",
+    "prettier": "prettier --ignore-path .gitignore --write ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "joi": "^17.12.1"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
+  }
+}
