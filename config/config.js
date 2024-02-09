@@ -11,20 +11,26 @@ if (!fileExists(filePath)) {
 }
 
 // Validate config file
-const configObj = require(filePath);
-const { error } = validateConfigFile(configObj);
+try {
+  const configObj = require(filePath);
 
-// Show validation error and exit the process.
-if (error) {
-  showValidationError(error.details);
+  const { error } = validateConfigFile(configObj);
+  
+  // Show validation error and exit the process.
+  if (error) {
+    showValidationError(error.details);
+    stopProcess(0);
+  }
+  
+  // Preapre application config object
+  const config = {
+    urls: configObj.urls,
+    interval: configObj.interval ?? 300000,
+    threshold: configObj.threshold ?? 5,
+  };
+  
+  exports.config = config;
+} catch (error) {
+  log.red('Configuration file is empty or malformed. It must contain object');
   stopProcess(0);
 }
-
-// Preapre application config object
-const config = {
-  urls: configObj.urls,
-  interval: configObj.interval ?? 3000,
-  threshold: configObj.threshold ?? 5,
-};
-
-exports.config = config;
